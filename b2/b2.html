@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra Phân Số</title>
+</head>
+<body>
+
+<h2>Nhập hai phân số</h2>
+
+<div>
+    <label for="tu_so1">Tử số phân số thứ nhất:</label>
+    <input type="number" id="tu_so1">
+    <label for="mau_so1">Mẫu số phân số thứ nhất:</label>
+    <input type="number" id="mau_so1">
+</div>
+
+<div>
+    <label for="tu_so2">Tử số phân số thứ hai:</label>
+    <input type="number" id="tu_so2">
+    <label for="mau_so2">Mẫu số phân số thứ hai:</label>
+    <input type="number" id="mau_so2">
+</div>
+
+<button onclick="kiemTraPhanSo()">Kiểm tra</button>
+
+<script>
+
+    function ucln(a, b) {
+        while (b) {
+            var temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+
+    class PhanSo {
+        constructor(tuSo, mauSo) {
+            this.tuSo = tuSo;
+            this.mauSo = mauSo;
+        }
+
+        rutGon() {
+            const gcd = ucln(this.tuSo, this.mauSo);
+            this.tuSo /= gcd;
+            this.mauSo /= gcd;
+        }
+
+        soSanh(phanSo2) {
+            return this.tuSo * phanSo2.mauSo === phanSo2.tuSo * this.mauSo;
+        }
+    }
+
+
+    function kiemTraPhanSo() {
+        const tuSo1 = parseInt(document.getElementById("tu_so1").value);
+        const mauSo1 = parseInt(document.getElementById("mau_so1").value);
+        const tuSo2 = parseInt(document.getElementById("tu_so2").value);
+        const mauSo2 = parseInt(document.getElementById("mau_so2").value);
+
+        const phanSo1 = new PhanSo(tuSo1, mauSo1);
+        const phanSo2 = new PhanSo(tuSo2, mauSo2);
+
+        phanSo1.rutGon();
+        phanSo2.rutGon();
+
+        if (phanSo1.soSanh(phanSo2)) {
+            console.log("Hai phân số bằng nhau.");
+        } else {
+            console.log("Hai phân số không bằng nhau.");
+        }
+    }
+</script>
+
+</body>
+</html>

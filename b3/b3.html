@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sổ tiết kiệm</title>
+
+</head>
+<body>
+<h2>Thông tin sổ tiết kiệm</h2>
+<form id="soTietKiemForm">
+    <label for="maSo">Mã sổ:</label>
+    <input type="text" id="maSo" maxlength="5" required><br><br>
+
+    <label for="loaiTietKiem">Loại tiết kiệm:</label>
+    <input type="text" id="loaiTietKiem" maxlength="10" required><br><br>
+
+    <label for="hoTen">Họ tên khách hàng:</label>
+    <input type="text" id="hoTen" maxlength="30" required><br><br>
+
+    <label for="chungMinhNhanDan">Chứng minh nhân dân:</label>
+    <input type="number" id="chungMinhNhanDan" required><br><br>
+
+    <label for="ngayMoSo">Ngày mở sổ:</label>
+    <input type="text" id="ngayMoSo" placeholder="dd/mm/yyyy" required><br><br>
+
+    <label for="soTienGui">Số tiền gửi:</label>
+    <input type="number" id="soTienGui" required><br><br>
+
+    <button type="submit">Thêm sổ tiết kiệm</button>
+</form>
+
+<h2>Danh sách sổ tiết kiệm</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Mã sổ</th>
+        <th>Loại tiết kiệm</th>
+        <th>Họ tên khách hàng</th>
+        <th>Chứng minh nhân dân</th>
+        <th>Ngày mở sổ</th>
+        <th>Số tiền gửi</th>
+
+        <th colspan="2">Action</th>
+    </tr>
+    </thead>
+    <tbody id="display">
+    </tbody>
+</table>
+<ul id="danhSachSoTietKiem"></ul>
+
+<script>
+    class SoTietKiem {
+        constructor(maSo, loaiTietKiem, hoTen, chungMinhNhanDan, ngayMoSo, soTienGui) {
+            this.maSo = maSo;
+            this.loaiTietKiem = loaiTietKiem;
+            this.hoTen = hoTen;
+            this.chungMinhNhanDan = chungMinhNhanDan;
+            this.ngayMoSo = ngayMoSo;
+            this.soTienGui = soTienGui;
+        }
+
+        displayInfo() {
+            return `<li>Thông tin sổ tiết kiệm:<br>
+                    Mã sổ: ${this.maSo}<br>
+                    Loại tiết kiệm: ${this.loaiTietKiem}<br>
+                    Họ tên khách hàng: ${this.hoTen}<br>
+                    Chứng minh nhân dân: ${this.chungMinhNhanDan}<br>
+                    Ngày mở sổ: ${this.ngayMoSo}<br>
+                    Số tiền gửi: ${this.soTienGui}</li>`;
+        }
+    }
+
+    const soTietKiemForm = document.getElementById('soTietKiemForm');
+    const danhSachSoTietKiem = document.getElementById('danhSachSoTietKiem');
+
+    soTietKiemForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const maSo = document.getElementById('maSo').value;
+        const loaiTietKiem = document.getElementById('loaiTietKiem').value;
+        const hoTen = document.getElementById('hoTen').value;
+        const chungMinhNhanDan = parseInt(document.getElementById('chungMinhNhanDan').value);
+        const ngayMoSo = document.getElementById('ngayMoSo').value;
+        const soTienGui = parseInt(document.getElementById('soTienGui').value);
+
+        const newSoTietKiem = new SoTietKiem(maSo, loaiTietKiem, hoTen, chungMinhNhanDan, ngayMoSo, soTienGui);
+        const listItem = document.createElement('li');
+        listItem.innerHTML = newSoTietKiem.displayInfo();
+        danhSachSoTietKiem.appendChild(listItem);
+
+        // Reset form
+        soTietKiemForm.reset();
+    });
+</script>
+<link rel="stylesheet" href="b3.css">
+</body>
+</html>

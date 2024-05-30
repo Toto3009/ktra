@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xử lý Mảng Số Nguyên</title>
+</head>
+<body>
+
+<h2>Nhập Mảng Số Nguyên</h2>
+
+<div>
+    <label for="inputArray">Nhập mảng số nguyên:</label>
+    <input type="text" id="inputArray">
+    <button onclick="processArray()">Xử lý</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+
+    function isPrime(num) {
+        if (num <= 1) return false;
+        if (num <= 3) return true;
+        if (num % 2 === 0 || num % 3 === 0) return false;
+        let i = 5;
+        while (i * i <= num) {
+            if (num % i === 0 || num % (i + 2) === 0) return false;
+            i += 6;
+        }
+        return true;
+    }
+
+    function processArray() {
+        const inputArray = document.getElementById("inputArray").value.trim();
+        const numbers = inputArray.split(" ").map(num => Number(num));
+
+        const primeNumbers = numbers.filter(num => isPrime(num));
+
+        document.getElementById("result").innerHTML = `
+            <p>Mảng vừa nhập vào: [${numbers.join(", ")}]</p>
+            <p>Các số nguyên tố trong mảng: [${primeNumbers.join(", ")}]</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
